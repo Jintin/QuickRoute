@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">QuickRoute</string>
+    <string name="dev_page">Developer options</string>
+    <string name="dev_not_enable_msg">"Need enable developer options first"</string>
+</resources>
