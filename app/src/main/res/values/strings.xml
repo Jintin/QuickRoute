@@ -2,4 +2,10 @@
     <string name="app_name">QuickRoute</string>
     <string name="dev_page">Developer options</string>
     <string name="dev_not_enable_msg">"Need enable developer options first"</string>
+    <string name="txt_add">Add</string>
+    <string name="txt_action_list">Action List</string>
+    <string name="txt_select_app">Select App</string>
+    <string name="txt_select_act">Select Activity</string>
+    <string name="txt_delete">Delete</string>
+    <string name="txt_no_data">There\'s no data yet</string>
 </resources>
