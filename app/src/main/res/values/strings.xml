@@ -8,4 +8,5 @@
     <string name="txt_select_act">Select Activity</string>
     <string name="txt_delete">Delete</string>
     <string name="txt_no_data">There\'s no data yet</string>
+    <string name="txt_not_able_launch">Not able to launch this Activity</string>
 </resources>

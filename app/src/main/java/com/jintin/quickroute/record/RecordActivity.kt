@@ -6,6 +6,7 @@ import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,7 +71,11 @@ class RecordActivity : BindingActivity<ActivityListBinding>(), RecordActionSheet
     }
 
     private fun onSelect(data: Record) {
-        startActivity(Intent().setClassName(data.packageName, data.actName))
+        try {
+            startActivity(Intent().setClassName(data.packageName, data.actName))
+        } catch (e: Exception) {
+            Toast.makeText(this, R.string.txt_not_able_launch, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun onAction(data: Record) {
