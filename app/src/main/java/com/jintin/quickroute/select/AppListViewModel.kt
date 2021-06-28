@@ -20,22 +20,21 @@ class AppListViewModel @Inject constructor(app: Application) : AndroidViewModel(
 
     init {
         viewModelScope.launch {
-            getList(app.packageManager)
+            _liveDate.value = getList(app.packageManager)
         }
     }
 
-    private suspend fun getList(packageManager: PackageManager) {
-        _liveDate.value = withContext(Dispatchers.IO) {
-            packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-                .filter { packageManager.getLaunchIntentForPackage(it.packageName) != null }
-                .parallelMap {
-                    AppInfo(
-                        packageManager.getApplicationLabel(it).toString(),
-                        it.packageName,
-                    )
-                }
-        }
+    private suspend fun getList(packageManager: PackageManager) = withContext(Dispatchers.IO) {
+        packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+            .filter { packageManager.getLaunchIntentForPackage(it.packageName) != null }
+            .parallelMap {
+                AppInfo(
+                    packageManager.getApplicationLabel(it).toString(),
+                    it.packageName,
+                )
+            }
     }
+
 
     private suspend fun <A, B> Iterable<A>.parallelMap(f: suspend (A) -> B): List<B> =
         coroutineScope {

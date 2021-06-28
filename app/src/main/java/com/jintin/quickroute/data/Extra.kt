@@ -32,30 +32,14 @@ data class Extra(
                 return false
             }
             return when (this) {
-                STRING -> {
-                    value.isNotEmpty()
-                }
-                INT -> {
-                    value.toIntOrNull() != null
-                }
-                FLOAT -> {
-                    value.toFloatOrNull() != null
-                }
-                BYTE -> {
-                    value.toByteOrNull() != null
-                }
-                CHAR -> {
-                    value.singleOrNull() != null
-                }
-                LONG -> {
-                    value.toLongOrNull() != null
-                }
-                SHORT -> {
-                    value.toShortOrNull() != null
-                }
-                DOUBLE -> {
-                    value.toDoubleOrNull() != null
-                }
+                STRING -> value.isNotEmpty()
+                INT -> value.toIntOrNull() != null
+                FLOAT -> value.toFloatOrNull() != null
+                BYTE -> value.toByteOrNull() != null
+                CHAR -> value.singleOrNull() != null
+                LONG -> value.toLongOrNull() != null
+                SHORT -> value.toShortOrNull() != null
+                DOUBLE -> value.toDoubleOrNull() != null
                 BOOLEAN -> true
             }
         }

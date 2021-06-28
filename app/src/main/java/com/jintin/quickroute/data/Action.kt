@@ -21,7 +21,7 @@ data class Action(
 ) : ItemComparable<Action>, Parcelable {
 
     override fun areItemsTheSame(target: Action): Boolean {
-        return actName == target.actName
+        return id == target.id
     }
 
     override fun areContentsTheSame(target: Action): Boolean {

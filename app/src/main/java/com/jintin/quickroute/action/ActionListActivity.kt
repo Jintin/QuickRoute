@@ -83,7 +83,6 @@ class ActionListActivity : BindingActivity<ActivityActionBinding>(),
     private fun onSelect(data: Action) {
         try {
             startActivity(data.createIntent())
-
         } catch (e: Exception) {
             Toast.makeText(this, R.string.txt_not_able_launch, Toast.LENGTH_SHORT).show()
         }
