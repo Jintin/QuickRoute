@@ -12,14 +12,53 @@ data class Extra(
 ) : Parcelable, ItemComparable<Extra> {
 
     enum class Type {
-        STRING, INT, FLOAT;
+        STRING, INT, BYTE, CHAR, LONG, FLOAT, SHORT, DOUBLE, BOOLEAN;
 
         val label: String
             get() = when (this) {
                 STRING -> "String"
                 INT -> "Int"
                 FLOAT -> "Float"
+                BYTE -> "Byte"
+                CHAR -> "Char"
+                LONG -> "Long"
+                SHORT -> "Short"
+                DOUBLE -> "Double"
+                BOOLEAN -> "Boolean"
             }
+
+        fun isValid(value: String?): Boolean {
+            if (value == null) {
+                return false
+            }
+            return when (this) {
+                STRING -> {
+                    value.isNotEmpty()
+                }
+                INT -> {
+                    value.toIntOrNull() != null
+                }
+                FLOAT -> {
+                    value.toFloatOrNull() != null
+                }
+                BYTE -> {
+                    value.toByteOrNull() != null
+                }
+                CHAR -> {
+                    value.singleOrNull() != null
+                }
+                LONG -> {
+                    value.toLongOrNull() != null
+                }
+                SHORT -> {
+                    value.toShortOrNull() != null
+                }
+                DOUBLE -> {
+                    value.toDoubleOrNull() != null
+                }
+                BOOLEAN -> true
+            }
+        }
 
         companion object {
             fun getType(string: String): Type? {
@@ -27,6 +66,12 @@ data class Extra(
                     "String" -> STRING
                     "Int" -> INT
                     "Float" -> FLOAT
+                    "Byte" -> BYTE
+                    "Char" -> CHAR
+                    "Long" -> LONG
+                    "Short" -> SHORT
+                    "Double" -> DOUBLE
+                    "Boolean" -> BOOLEAN
                     else -> null
                 }
             }

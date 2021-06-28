@@ -14,6 +14,7 @@ import com.jintin.bindingextension.BindingActivity
 import com.jintin.quickroute.R
 import com.jintin.quickroute.base.bindEmptyView
 import com.jintin.quickroute.data.Action
+import com.jintin.quickroute.data.createIntent
 import com.jintin.quickroute.databinding.ActivityActionBinding
 import com.jintin.quickroute.extra.ExtraListActivity
 import com.jintin.quickroute.select.AppListActivity
@@ -81,7 +82,8 @@ class ActionListActivity : BindingActivity<ActivityActionBinding>(),
 
     private fun onSelect(data: Action) {
         try {
-            startActivity(Intent().setClassName(data.packageName, data.actName))
+            startActivity(data.createIntent())
+
         } catch (e: Exception) {
             Toast.makeText(this, R.string.txt_not_able_launch, Toast.LENGTH_SHORT).show()
         }

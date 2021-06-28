@@ -43,17 +43,6 @@ class EditDialogViewModel @Inject constructor() : ViewModel() {
             _validateLiveData.value = false
             return
         }
-        _validateLiveData.value = when (type) {
-            Extra.Type.STRING -> {
-                value != null && value?.length != 0
-            }
-            Extra.Type.INT -> {
-                value?.toIntOrNull() != null
-            }
-            Extra.Type.FLOAT -> {
-                value?.toFloatOrNull() != null
-            }
-            null -> false
-        }
+        _validateLiveData.value = type?.isValid(value) ?: false
     }
 }
