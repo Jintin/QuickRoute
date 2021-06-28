@@ -2,4 +2,22 @@
     <string name="app_name">QuickRoute</string>
     <string name="dev_page">Developer options</string>
     <string name="dev_not_enable_msg">"Need enable developer options first"</string>
+    <string name="txt_add">Add</string>
+    <string name="txt_done">Done</string>
+    <string name="txt_remove">Remove</string>
+    <string name="txt_apply">Apply</string>
+    <string name="txt_extra_name">Extra Name</string>
+    <string name="txt_extra_type">Type</string>
+    <string name="txt_extra_value">Value</string>
+    <string name="txt_action_list">Action List</string>
+    <string name="txt_select_app">Select App</string>
+    <string name="txt_select_act">Select Activity</string>
+    <string name="txt_modify_extra">Modify Extra</string>
+    <string name="txt_tutorial">Tutorial</string>
+    <string name="txt_delete">Delete</string>
+    <string name="txt_modify">Modify</string>
+    <string name="txt_no_record">There\'s no action to launch yet, click add to create one!</string>
+    <string name="txt_no_activity">There\'s no Activity yet</string>
+    <string name="txt_no_extra">There\'s no Extra yet</string>
+    <string name="txt_not_able_launch">Not able to launch this Activity</string>
 </resources>
