@@ -3,11 +3,13 @@ package com.jintin.quickroute.data
 import android.content.Intent
 
 fun Action.createIntent(): Intent {
-    return Intent().setClassName(packageName, actName).also { intent ->
-        extras.map {
-            it.fillExtra(intent)
+    return Intent().setClassName(packageName, actName)
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        .also { intent ->
+            extras.map {
+                it.fillExtra(intent)
+            }
         }
-    }
 }
 
 fun Extra.fillExtra(intent: Intent) {

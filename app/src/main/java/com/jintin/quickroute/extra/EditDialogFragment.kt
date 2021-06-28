@@ -83,11 +83,11 @@ class EditDialogFragment : DialogFragment() {
             binding.value.setText(it.value)
         }
         if (newCreate) {
-            binding.apply.setText(R.string.txt_apply)
-            binding.remove.setText(R.string.txt_remove)
-        } else {
             binding.apply.setText(R.string.txt_add)
             binding.remove.setText(android.R.string.cancel)
+        } else {
+            binding.apply.setText(R.string.txt_apply)
+            binding.remove.setText(R.string.txt_remove)
         }
 
         binding.apply.setOnClickListener {
