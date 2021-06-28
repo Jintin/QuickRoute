@@ -63,7 +63,6 @@ class EditDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = AlertDialog.Builder(requireContext())
             .setView(createView())
-            .setCancelable(false)
             .create()
         dialog.setCanceledOnTouchOutside(false)
         return dialog

@@ -28,7 +28,7 @@ class ExtraListViewModel @Inject constructor(private val actionDao: ActionDao) :
         setValue()
     }
 
-    fun apply() {
+    fun applyAction(afterAction: () -> Unit) {
         viewModelScope.launch {
             data.copy(extras = list).apply {
                 if (newCreate) {
@@ -36,6 +36,7 @@ class ExtraListViewModel @Inject constructor(private val actionDao: ActionDao) :
                 } else {
                     actionDao.update(this)
                 }
+                afterAction()
             }
         }
     }

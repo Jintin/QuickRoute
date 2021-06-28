@@ -81,8 +81,9 @@ class ExtraListActivity : BindingActivity<ActivityExtraBinding>(),
     }
 
     private fun onApply() {
-        viewModel.apply()
-        ActionListActivity.bringToFront(this)
+        viewModel.applyAction {
+            ActionListActivity.bringToFront(this)
+        }
     }
 
     override fun onRemoveExtra(data: Extra) {
