@@ -4,28 +4,29 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jintin.bindingextension.BindingActivity
 import com.jintin.quickroute.base.bindEmptyView
 import com.jintin.quickroute.data.AppInfo
-import com.jintin.quickroute.databinding.ActivityListLoadingBinding
+import com.jintin.quickroute.databinding.ActivityAppBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AppSelectActivity : BindingActivity<ActivityListLoadingBinding>() {
+class AppListActivity : BindingActivity<ActivityAppBinding>() {
 
     companion object {
         fun start(context: Context) {
-            context.startActivity(Intent(context, AppSelectActivity::class.java))
+            context.startActivity(Intent(context, AppListActivity::class.java))
         }
     }
 
-    private val viewModel by viewModels<AppSelectViewModel>()
+    private val viewModel by viewModels<AppListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val adapter = AppListAdapter(::onSelect)
+        val adapter = AppListAdapter(packageManager, lifecycleScope, ::onSelect)
         adapter.bindEmptyView(binding.progressBar)
         binding.recyclerView.layoutManager =
             LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL, false)
@@ -36,6 +37,6 @@ class AppSelectActivity : BindingActivity<ActivityListLoadingBinding>() {
     }
 
     private fun onSelect(info: AppInfo) {
-        ActSelectActivity.start(this, info.name, info.packageName)
+        ActListActivity.start(this, info.name, info.packageName)
     }
 }

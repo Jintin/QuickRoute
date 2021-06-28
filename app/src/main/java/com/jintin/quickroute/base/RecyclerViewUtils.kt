@@ -3,7 +3,9 @@ package com.jintin.quickroute.base
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
+
 fun RecyclerView.Adapter<*>.bindEmptyView(view: View) {
+
     fun updateEmptyViewVisibility() {
         view.visibility = if (itemCount == 0) {
             View.VISIBLE
@@ -11,7 +13,9 @@ fun RecyclerView.Adapter<*>.bindEmptyView(view: View) {
             View.GONE
         }
     }
+
     updateEmptyViewVisibility()
+
     registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
         override fun onChanged() {
             updateEmptyViewVisibility()

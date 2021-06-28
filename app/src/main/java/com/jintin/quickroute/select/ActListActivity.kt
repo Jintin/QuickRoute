@@ -7,13 +7,13 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jintin.bindingextension.BindingActivity
 import com.jintin.quickroute.base.bindEmptyView
-import com.jintin.quickroute.data.Record
-import com.jintin.quickroute.databinding.ActivityListLoadingBinding
-import com.jintin.quickroute.record.RecordActivity
+import com.jintin.quickroute.data.Action
+import com.jintin.quickroute.databinding.ActivityActBinding
+import com.jintin.quickroute.extra.ExtraListActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ActSelectActivity : BindingActivity<ActivityListLoadingBinding>() {
+class ActListActivity : BindingActivity<ActivityActBinding>() {
 
     companion object {
         const val EXTRA_NAME = "extra_name"
@@ -21,14 +21,14 @@ class ActSelectActivity : BindingActivity<ActivityListLoadingBinding>() {
 
         fun start(context: Context, appName: String, packageName: String) {
             context.startActivity(
-                Intent(context, ActSelectActivity::class.java)
+                Intent(context, ActListActivity::class.java)
                     .putExtra(EXTRA_NAME, appName)
                     .putExtra(EXTRA_PACKAGE, packageName)
             )
         }
     }
 
-    private val viewModel by viewModels<ActSelectViewModel>()
+    private val viewModel by viewModels<ActListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +39,10 @@ class ActSelectActivity : BindingActivity<ActivityListLoadingBinding>() {
             intent.getStringExtra(EXTRA_PACKAGE) ?: throw RuntimeException("")
 
         val adapter = ActListAdapter(::onSelect)
-        adapter.bindEmptyView(binding.progressBar)
+        adapter.bindEmptyView(binding.emptyView)
         binding.recyclerView.layoutManager =
             LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
-
 
         viewModel.getList(appName, packageName)
         viewModel.liveData.observe(this) {
@@ -51,8 +50,7 @@ class ActSelectActivity : BindingActivity<ActivityListLoadingBinding>() {
         }
     }
 
-    private fun onSelect(record: Record) {
-        viewModel.add(record)
-        RecordActivity.bringToFront(this)
+    private fun onSelect(action: Action) {
+        ExtraListActivity.start(this, action, true)
     }
 }

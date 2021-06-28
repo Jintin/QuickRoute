@@ -1,4 +1,4 @@
-package com.jintin.quickroute.record
+package com.jintin.quickroute.action
 
 import android.content.Context
 import android.content.Intent
@@ -13,37 +13,42 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jintin.bindingextension.BindingActivity
 import com.jintin.quickroute.R
 import com.jintin.quickroute.base.bindEmptyView
-import com.jintin.quickroute.data.Record
-import com.jintin.quickroute.databinding.ActivityListBinding
-import com.jintin.quickroute.select.AppSelectActivity
+import com.jintin.quickroute.data.Action
+import com.jintin.quickroute.databinding.ActivityActionBinding
+import com.jintin.quickroute.extra.ExtraListActivity
+import com.jintin.quickroute.select.AppListActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RecordActivity : BindingActivity<ActivityListBinding>(), RecordActionSheet.OnActionListener {
+class ActionListActivity : BindingActivity<ActivityActionBinding>(),
+    SelectActionBottomSheet.OnActionListener {
 
     companion object {
         fun bringToFront(context: Context) {
             context.startActivity(
-                Intent(context, RecordActivity::class.java)
+                Intent(context, ActionListActivity::class.java)
                     .addFlags(FLAG_ACTIVITY_CLEAR_TOP)
             )
         }
     }
 
-    private val viewModel by viewModels<RecordViewModel>()
+    private val viewModel by viewModels<ActionListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setTitle(R.string.txt_action_list)
-        val adapter = RecordAdapter(
+        val adapter = ActionListAdapter(
             packageManager,
             lifecycleScope,
             ::onSelect,
             ::onAction
         )
-        adapter.bindEmptyView(binding.emptyHint)
+        adapter.bindEmptyView(binding.emptyView)
 
+        binding.addAction.setOnClickListener {
+            AppListActivity.start(this)
+        }
         binding.recyclerView.layoutManager =
             LinearLayoutManager(baseContext, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
@@ -60,17 +65,21 @@ class RecordActivity : BindingActivity<ActivityListBinding>(), RecordActionSheet
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_add) {
-            AppSelectActivity.start(this)
+            AppListActivity.start(this)
             return true
         }
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onDelete(data: Record) {
+    override fun onDelete(data: Action) {
         viewModel.delete(data)
     }
 
-    private fun onSelect(data: Record) {
+    override fun onModify(data: Action) {
+        ExtraListActivity.start(this, data, false)
+    }
+
+    private fun onSelect(data: Action) {
         try {
             startActivity(Intent().setClassName(data.packageName, data.actName))
         } catch (e: Exception) {
@@ -78,8 +87,8 @@ class RecordActivity : BindingActivity<ActivityListBinding>(), RecordActionSheet
         }
     }
 
-    private fun onAction(data: Record) {
-        RecordActionSheet.newInstance(data)
+    private fun onAction(data: Action) {
+        SelectActionBottomSheet.newInstance(data)
             .show(supportFragmentManager, null)
     }
 

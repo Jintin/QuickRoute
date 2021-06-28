@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.jintin.quickroute.base.BaseDao
-import com.jintin.quickroute.data.Record
+import com.jintin.quickroute.data.Action
 
 @Dao
-interface RecordDao : BaseDao<Record> {
+interface ActionDao : BaseDao<Action> {
 
-    @Query("SELECT * FROM record")
-    fun list(): LiveData<List<Record>>
+    @Query("SELECT * FROM `action`")
+    fun list(): LiveData<List<Action>>
 
 }

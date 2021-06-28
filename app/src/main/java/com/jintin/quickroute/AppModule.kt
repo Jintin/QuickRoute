@@ -3,7 +3,7 @@ package com.jintin.quickroute
 import android.app.Application
 import androidx.room.Room
 import com.jintin.quickroute.db.QuickRouteDB
-import com.jintin.quickroute.db.RecordDao
+import com.jintin.quickroute.db.ActionDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +25,7 @@ class AppModule {
     }
 
     @Provides
-    fun provideRecordDao(db: QuickRouteDB): RecordDao {
-        return db.recordDao()
+    fun provideActionDao(db: QuickRouteDB): ActionDao {
+        return db.actionDao()
     }
 }

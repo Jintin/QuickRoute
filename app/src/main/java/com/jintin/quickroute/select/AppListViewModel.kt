@@ -12,7 +12,7 @@ import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
-class AppSelectViewModel @Inject constructor(app: Application) : AndroidViewModel(app) {
+class AppListViewModel @Inject constructor(app: Application) : AndroidViewModel(app) {
 
     private val _liveDate = MutableLiveData<List<AppInfo>>()
     val liveData: LiveData<List<AppInfo>>
@@ -29,16 +29,9 @@ class AppSelectViewModel @Inject constructor(app: Application) : AndroidViewMode
             packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
                 .filter { packageManager.getLaunchIntentForPackage(it.packageName) != null }
                 .parallelMap {
-                    val name = async(Dispatchers.IO) {
-                        packageManager.getApplicationLabel(it).toString()
-                    }
-                    val icon = async(Dispatchers.IO) {
-                        packageManager.getApplicationIcon(it)
-                    }
                     AppInfo(
-                        name.await(),
+                        packageManager.getApplicationLabel(it).toString(),
                         it.packageName,
-                        icon.await()
                     )
                 }
         }

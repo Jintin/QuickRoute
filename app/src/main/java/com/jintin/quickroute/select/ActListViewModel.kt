@@ -6,20 +6,20 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.jintin.quickroute.data.Record
-import com.jintin.quickroute.db.RecordDao
+import com.jintin.quickroute.data.Action
+import com.jintin.quickroute.db.ActionDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ActSelectViewModel @Inject constructor(
+class ActListViewModel @Inject constructor(
     app: Application,
-    private val recordDao: RecordDao
+    private val actionDao: ActionDao
 ) : AndroidViewModel(app) {
 
-    private val _liveData = MutableLiveData<List<Record>>()
-    val liveData: LiveData<List<Record>>
+    private val _liveData = MutableLiveData<List<Action>>()
+    val liveData: LiveData<List<Action>>
         get() = _liveData
 
     fun getList(appName: String, packageName: String) {
@@ -32,16 +32,16 @@ class ActSelectViewModel @Inject constructor(
                 ).activities
                 .filter { it.exported }
                 .map {
-                    Record(appName, it.name, it.packageName)
+                    Action(appName, it.name, it.packageName)
                 }
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
     }
 
-    fun add(record: Record) {
+    fun add(action: Action) {
         viewModelScope.launch {
-            recordDao.insert(record)
+            actionDao.insert(action)
         }
     }
 }

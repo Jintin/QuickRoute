@@ -1,12 +1,10 @@
 package com.jintin.quickroute.data
 
-import android.graphics.drawable.Drawable
 import com.jintin.quickroute.base.ItemComparable
 
 data class AppInfo(
     var name: String,
-    val packageName: String,
-    val icon: Drawable
+    val packageName: String
 ) : ItemComparable<AppInfo> {
 
     override fun areItemsTheSame(target: AppInfo) = this.packageName == target.packageName

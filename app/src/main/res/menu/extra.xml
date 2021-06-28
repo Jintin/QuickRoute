@@ -6,4 +6,9 @@
         android:icon="@drawable/ic_add"
         android:title="@string/txt_add"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_done"
+        android:icon="@drawable/ic_done"
+        android:title="@string/txt_done"
+        app:showAsAction="ifRoom" />
 </menu>
